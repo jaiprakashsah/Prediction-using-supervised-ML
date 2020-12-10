@@ -1,0 +1,76 @@
+> #FINDING CURRENT DIRECTORY 
+> getwd()
+[1] "C:/Users/jaipr/OneDrive/Desktop/SPARKS"
+> #SETING NEW DIRECTORY
+> path="C:/Users/jaipr/OneDrive/Desktop/SPARKS"
+> setwd(path)
+> #READS CSV FILES
+> TASK1=read.csv("task1.csv",header=TRUE)
+> #SHOWING DATA HEAD
+> head(TASK1)
+  Hours Scores
+1   2.5     21
+2   5.1     47
+3   3.2     27
+4   8.5     75
+5   3.5     30
+6   1.5     20
+> #DRAWING BOX PLOT
+> par(mfrow=c(1,2))
+> for(i in 1:2){
++ boxplot(TASK1[,i],xlab=names(TASK1[i]),col=i)
++ }
+> head(TASK1)
+  Hours Scores
+1   2.5     21
+2   5.1     47
+3   3.2     27
+4   8.5     75
+5   3.5     30
+6   1.5     20
+> #EXTRACTING VARIABLES
+> Hours=TASK1$Hours
+> Scores=TASK1$Scores
+> #FITTING SIMPLE LINEAR MODEL
+> TASK1.MODEL1=lm(formula=Scores~Hours)
+> summary(TASK1.MODEL1)
+
+Call:
+lm(formula = Scores ~ Hours)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-10.578  -5.340   1.839   4.593   7.265 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   2.4837     2.5317   0.981    0.337    
+Hours         9.7758     0.4529  21.583   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 5.603 on 23 degrees of freedom
+Multiple R-squared:  0.9529,    Adjusted R-squared:  0.9509 
+F-statistic: 465.8 on 1 and 23 DF,  p-value: < 2.2e-16
+
+> par(mfrow=c(2,2))
+> #PLOTTING VARIABLES & RESIDUALS
+> plot(TASK1.MODEL1)
+> #TESTING HOMOSCADESITY
+> library(lmtest)
+> bptest(TASK1.MODEL1)
+
+        studentized Breusch-Pagan test
+
+data:  TASK1.MODEL1
+BP = 3.6359, df = 1, p-value = 0.05655
+
+> #PREDICTING SCORE
+> #Scores=2.4837+(9.7758*Hours)
+> predicted_score=2.4837+(9.7758*9.25)
+> predicted_score
+[1] 92.90985
+> #end thank_you
+> save.image("C:\\Users\\jaipr\\OneDrive\\Desktop\\SPARKS\\task1uploadcode")
+> save.image("C:\\Users\\jaipr\\OneDrive\\Desktop\\SPARKS\\TASK11")
+> 
